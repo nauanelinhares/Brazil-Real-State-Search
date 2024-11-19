@@ -17,14 +17,17 @@ TABLE_NAME = "info_houses"
 CREATE_TABLE_SQL = f"""
 CREATE TABLE {TABLE_NAME} (
     id BIGINT PRIMARY KEY,
-    rent FLOAT NOT NULL,
-    tax_hotel FLOAT NOT NULL,
-    iptu FLOAT NOT NULL,
+    rent INT NOT NULL,
+    tax_hotel INT NOT NULL,
+    iptu INT NOT NULL,
     adress TEXT NOT NULL,
+    neighborhood TEXT,
+    company TEXT,
     size INT,
     number_rooms INT,
     number_bathrooms INT,
     number_parking_spaces INT,
+    images TEXT[],
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
