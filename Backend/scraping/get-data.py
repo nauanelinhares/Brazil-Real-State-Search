@@ -105,14 +105,20 @@ class GetDataFromRealState:
         # select id, url from url_houses
         # where id = 2748534661
         with self.conn.cursor() as cursor:
-            cursor.execute("SELECT id, url FROM url_houses")
+            cursor.execute("""
+                SELECT uh.id, uh.url 
+                FROM url_houses uh
+                LEFT JOIN info_houses ih ON uh.id = ih.id
+                WHERE ih.id IS NULL
+                ORDER BY uh.created_at desc
+            """)
             houses = cursor.fetchall()
         
         for id, url in houses:
             self.driver.get(url)
             rent = EC.presence_of_element_located((By.CLASS_NAME, 'price-info-value'))
             try:
-                WebDriverWait(self.driver, 2).until(rent)
+                WebDriverWait(self.driver, 0.25).until(rent)
                 rent = self.findElement(By.CLASS_NAME, 'price-info-value')
                 tax_hotel = self.findElement(By.ID, 'condo-fee-price')
                 iptu = self.findElement(By.ID, 'iptu-price')
@@ -209,7 +215,7 @@ class GetDataFromRealState:
 scraping = GetDataFromRealState()
 
 if False:
-    scraping.getUrlHousesData('https://www.vivareal.com.br/aluguel/sp/sao-jose-dos-campos/apartamento_residencial/')
+    scraping.getUrlHousesData('https://www.vivareal.com.br/aluguel/sp/sao-jose-dos-campos/apartamento_residencial/', 300)
 
 if True:
     scraping.getHouseInfoData()
