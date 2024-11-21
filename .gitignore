@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .envrc
+
+# Cache files 
+*.pyc
