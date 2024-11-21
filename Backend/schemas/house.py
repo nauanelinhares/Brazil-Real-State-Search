@@ -18,6 +18,17 @@ class InfoHouse(BaseModel):
     description: Optional[str] = None
     created_at: datetime
     updated_at: datetime
+    url: Optional[str] = None
+
+    class Config:
+        orm_mode = True
+        
+
+class UrlHouse(BaseModel):
+    id: int
+    url: str
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         orm_mode = True

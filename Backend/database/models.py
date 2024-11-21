@@ -20,3 +20,13 @@ class InfoHouse(Base):
     images = Column(ARRAY(String), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow)
+    
+    
+
+class UrlHouse(Base):
+    __tablename__ = "url_houses"
+
+    id = Column(Integer, primary_key=True, index=True)
+    url = Column(String, unique=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)
