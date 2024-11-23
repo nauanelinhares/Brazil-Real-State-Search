@@ -32,3 +32,10 @@ class UrlHouse(BaseModel):
 
     class Config:
         orm_mode = True
+        
+        
+class neighborhood(BaseModel):
+    neighborhood: str
+
+    class Config:
+        orm_mode = True

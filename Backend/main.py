@@ -2,27 +2,9 @@ from fastapi import FastAPI
 import uvicorn
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from api.v1.endpoints import houses
+from api.v1.endpoints import house
 
 from fastapi.middleware.cors import CORSMiddleware
-
-
-
-def get_houses():
-        conn = psycopg2.connect(
-            dbname="your_dbname",
-            user="your_user",
-            password="your_password",
-            host="your_host",
-            port="your_port"
-        )
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
-        cursor.execute("SELECT * FROM info_houses LIMIT 10")
-        houses = cursor.fetchall()
-        cursor.close()
-        conn.close()
-        return houses
-
 
 app = FastAPI()
 
@@ -34,7 +16,7 @@ app.add_middleware(
     allow_headers=["*"],  # Permite todos os cabeçalhos
 )
 
-app.include_router(houses.router, prefix="/api/v1", tags=["houses"])
+app.include_router(house.router, prefix="/api/v1", tags=["houses"])
 
 
 @app.get("/health")
