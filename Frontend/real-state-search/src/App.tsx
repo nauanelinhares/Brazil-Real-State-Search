@@ -1,31 +1,56 @@
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+import React, { useEffect, useState } from "react";
+import { HouseInfo } from "./api/types"; // Import the House type
+import { getHouseById } from "./api/houses";
 import HouseBox from "./components/HouseBox";
 
 const App = () => {
+  const [house, setHouse] = useState<HouseInfo>();
+  const [houseId, setHouseId] = useState<string>("2756055244");
+
+  const changeHouseId = (id: string) => {
+    setHouseId(id);
+  };
+
+  const fetchHouse = async (id: string) => {
+    try {
+      const response = getHouseById(id);
+      setHouse(await response);
+      console.log(house?.description);
+    } catch (error) {
+      console.error("Error fetching house:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchHouse(houseId);
+  }, [houseId]);
+
   return (
     <div>
-      <Header />
-      <h1>Real State Search</h1>
-      <h1>Real State Search</h1>
-      <HouseBox
-        title={"Casa"}
-        description={"SADASDUAWHDWAHUDAUHWDUHAWDUHAWDHUAW"}
-        price={"1250"}
-        imageUrl={
-          "https://resizedimgs.vivareal.com/crop/286x200/named.images.sp/f1e1bb3ef28e073775fc8a1ead80ecfe/foto-1-de-apartamento-com-2-quartos-para-alugar-65m-em-bosque-dos-eucaliptos-sao-jose-dos-campos.webp"
-        }
+      <h1>House Details</h1>
+
+      <input
+        type="text"
+        placeholder="Enter house ID"
+        style={{ margin: "10px 0px" }}
+        onChange={(e) => changeHouseId(e.target.value)}
       />
-      <h1>Real State Search</h1>
-      <HouseBox
-        title={"Casa"}
-        description={"SADASDUAWHDWAHUDAUHWDUHAWDUHAWDHUAW"}
-        price={"1250"}
-        imageUrl={
-          "https://resizedimgs.vivareal.com/crop/360x240/named.images.sp/5f9ade9e4adbd1f00245237eb45e79f2/foto-1-de-apartamento-com-2-quartos-para-alugar-62m-em-parque-residencial-aquarius-sao-jose-dos-campos.webp"
-        }
-      />
-      <Footer />
+
+      {house ? (
+        <div>
+          <HouseBox
+            title={house.adress}
+            description={house.description}
+            rent={house.rent}
+            tax_hotel={house.tax_hotel}
+            iptu={house.iptu}
+            imageUrls={house.images}
+            size={house.size}
+          />
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

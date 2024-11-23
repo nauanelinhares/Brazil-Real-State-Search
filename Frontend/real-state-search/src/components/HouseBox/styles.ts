@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HouseBoxContainer = styled.div`
     display: flex;
-    width: 40%;
+    width: 100%;
     flex-direction: column;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -16,9 +16,8 @@ export const HouseBoxContainer = styled.div`
 `;
 
 export const HouseImage = styled.img`
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+    width: 100%;
+    height: 400px;
 `;
 
 export const HouseDetails = styled.div`
