@@ -4,6 +4,8 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from api.v1.endpoints import houses
 
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 def get_houses():
@@ -23,6 +25,14 @@ def get_houses():
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Origem do seu front-end
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permite todos os cabeçalhos
+)
 
 app.include_router(houses.router, prefix="/api/v1", tags=["houses"])
 
