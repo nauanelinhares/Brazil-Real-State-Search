@@ -6,10 +6,12 @@ import {
   HousePrice,
   HouseTitle,
 } from "./styles";
+import Card from "@mui/material/Card";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { HouseBoxProps } from "./types";
+import { blue, grey } from "@mui/material/colors";
 
 const responsive = {
   desktop: {
@@ -45,7 +47,14 @@ const HouseBox = ({
   size,
 }: HouseBoxProps) => {
   return (
-    <HouseBoxContainer className="house-box">
+    <Card
+      className="house-box0"
+      style={{
+        borderColor: grey[500],
+        borderRadius: "16px",
+        border: "2px solid",
+      }}
+    >
       <Carousel
         additionalTransfrom={0}
         arrows
@@ -97,7 +106,7 @@ const HouseBox = ({
           {description}
         </HouseDescription>
       </HouseDetails>
-    </HouseBoxContainer>
+    </Card>
   );
 };
 
