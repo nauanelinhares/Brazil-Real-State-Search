@@ -10,7 +10,7 @@ router = APIRouter()
 group = "/house"
 
 @router.get("/houses", response_model=List[InfoHouse])
-def read_houses(neighborhood: str = None, skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+def read_houses(neighborhood: str = None, skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):
     houses = get_houses(db, skip=skip, limit=limit, neighborhood=neighborhood)
     return houses
 
