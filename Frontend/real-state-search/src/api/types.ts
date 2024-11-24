@@ -19,7 +19,7 @@ interface HouseInfo {
 
 interface Neighborhood {
     neighborhood: string;
-    count: number;
+    count?: number;
 }
 
 export type {HouseInfo, Neighborhood};

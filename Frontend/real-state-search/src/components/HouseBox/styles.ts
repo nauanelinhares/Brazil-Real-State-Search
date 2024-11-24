@@ -14,7 +14,7 @@ export const HouseDetails = styled.div`
 
 export const HouseTitle = styled.h3`
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #333;
 `;
 

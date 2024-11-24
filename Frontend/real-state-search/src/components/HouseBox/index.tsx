@@ -49,7 +49,7 @@ const HouseBox = ({
     <Card
       className="house-box0"
       style={{
-        width: "300px",
+        width: "250px",
       }}
     >
       <Carousel

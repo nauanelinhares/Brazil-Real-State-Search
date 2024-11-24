@@ -12,8 +12,8 @@ async function getHouseById(id: string) {
 }
 
 
-async function getHouses(neighborhood: string) {
-    const response = await fetch(`http://127.0.0.1:8000/api/v1/houses?neighborhood=${neighborhood}`);
+async function getHouses(neighborhood: string, limit: number = 12, offset: number = 0) {
+    const response = await fetch(`http://127.0.0.1:8000/api/v1/houses?neighborhood=${neighborhood}&limit=${limit}&offset=${offset}`);
     console.log(response.status);
     if (!response.ok) {
         throw new Error(`Error fetching house with id ${neighborhood}: ${response.statusText}`);
