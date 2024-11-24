@@ -11,6 +11,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { HouseBoxProps } from "./types";
 import { blue, grey } from "@mui/material/colors";
+import { formatDate } from "../../utils/format-date";
 
 const responsive = {
   desktop: {
@@ -44,6 +45,7 @@ const HouseBox = ({
   iptu,
   imageUrls,
   size,
+  created_at,
 }: HouseBoxProps) => {
   return (
     <Card
@@ -95,6 +97,7 @@ const HouseBox = ({
         <div>Condomínio: R$ {tax_hotel}</div>
         <div>IPTU: R$ {iptu}</div>
         <div>Tamanho {size} m²</div>
+        <div>Lançado: {formatDate(created_at)}</div>
         <HousePrice className="house-price">
           Aluguel: R${rent + tax_hotel + iptu}
         </HousePrice>
