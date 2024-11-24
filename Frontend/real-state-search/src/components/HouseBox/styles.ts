@@ -1,23 +1,11 @@
 import styled from 'styled-components';
 
-export const HouseBoxContainer = styled.div`
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-
-    &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-`;
 
 export const HouseImage = styled.img`
     width: 100%;
-    height: 400px;
+    height: 200px;
+    display: flex;
+    border-radius: 8px;
 `;
 
 export const HouseDetails = styled.div`

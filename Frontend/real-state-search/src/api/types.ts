@@ -17,5 +17,10 @@ interface HouseInfo {
     url: string;
 }
 
-export type {HouseInfo};
+interface Neighborhood {
+    neighborhood: string;
+    count: number;
+}
+
+export type {HouseInfo, Neighborhood};
 

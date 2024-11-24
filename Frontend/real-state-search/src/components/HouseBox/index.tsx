@@ -1,5 +1,4 @@
 import {
-  HouseBoxContainer,
   HouseDescription,
   HouseDetails,
   HouseImage,
@@ -19,7 +18,7 @@ const responsive = {
       max: 3000,
       min: 1024,
     },
-    items: 3,
+    items: 1,
   },
   mobile: {
     breakpoint: {
@@ -50,9 +49,7 @@ const HouseBox = ({
     <Card
       className="house-box0"
       style={{
-        borderColor: grey[500],
-        borderRadius: "16px",
-        border: "2px solid",
+        width: "300px",
       }}
     >
       <Carousel
@@ -102,9 +99,9 @@ const HouseBox = ({
           Aluguel: R${rent + tax_hotel + iptu}
         </HousePrice>
 
-        <HouseDescription className="house-description">
+        {/* <HouseDescription className="house-description">
           {description}
-        </HouseDescription>
+        </HouseDescription> */}
       </HouseDetails>
     </Card>
   );
