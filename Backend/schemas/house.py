@@ -36,6 +36,7 @@ class UrlHouse(BaseModel):
         
 class neighborhood(BaseModel):
     neighborhood: str
+    count: int
 
     class Config:
         orm_mode = True

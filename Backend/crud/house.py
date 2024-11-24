@@ -1,13 +1,14 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from database.models import InfoHouse, UrlHouse
 
-def get_houses(db: Session, skip: int = 0, limit: int = 10, neighborhood: str = None):
+def get_houses(db: Session, skip: int = 0, limit: int = 20, neighborhood: str = None):
         query = db.query(InfoHouse).outerjoin(UrlHouse, InfoHouse.id == UrlHouse.id)
         
         if neighborhood:
             query = query.filter(InfoHouse.neighborhood == neighborhood)
         
-        return query.offset(skip).limit(limit).all()
+        return query.order_by(InfoHouse.rent).offset(skip).limit(limit).all()
 
 
 def get_house(db: Session, house_id: int):
@@ -31,4 +32,7 @@ def get_house(db: Session, house_id: int):
     ).outerjoin(UrlHouse, InfoHouse.id == UrlHouse.id).filter(InfoHouse.id == house_id).first()
     
 def get_neighborhoods(db: Session):
-    return db.query(InfoHouse.neighborhood).distinct().all()
+        return db.query(
+            InfoHouse.neighborhood,
+            func.count(InfoHouse.id).label('count')
+        ).group_by(InfoHouse.neighborhood).all()
