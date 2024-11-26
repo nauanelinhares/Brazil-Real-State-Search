@@ -214,7 +214,7 @@ class GetDataFromRealState:
 
 scraping = GetDataFromRealState()
 
-if False:
+if True:
     scraping.getUrlHousesData('https://www.vivareal.com.br/aluguel/sp/sao-jose-dos-campos/apartamento_residencial/', 300)
 
 if True:
