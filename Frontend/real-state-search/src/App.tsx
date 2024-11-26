@@ -20,7 +20,6 @@ const App = () => {
   const [selectedNeighborhood, setSelectedNeighborhood] =
     useState<Neighborhood>({
       neighborhood: "",
-      count: 100,
     });
   const [selectedPage, setSelectedPage] = useState<number>(1);
   const [selectedDate, setSelectedDate] = useState<string>("");
@@ -61,7 +60,6 @@ const App = () => {
     fetchHouses(selectedNeighborhood);
   }, [selectedDate]);
 
-  console.log("selectedDate", selectedDate);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <h1>Casas</h1>
@@ -116,6 +114,7 @@ const App = () => {
                     imageUrls={house.images}
                     size={house.size}
                     created_at={house.created_at}
+                    url={house.url}
                   />
                 ))}
             </Grid>

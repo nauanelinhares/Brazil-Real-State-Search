@@ -3,7 +3,8 @@ import {
   HouseDetails,
   HouseImage,
   HousePrice,
-  HouseTitle,
+  HouseTitleLink,
+  TextField,
 } from "./styles";
 import Card from "@mui/material/Card";
 
@@ -12,6 +13,7 @@ import "react-multi-carousel/lib/styles.css";
 import { HouseBoxProps } from "./types";
 import { blue, grey } from "@mui/material/colors";
 import { formatDate } from "../../utils/format-date";
+import Link from "@mui/material/Link";
 
 const responsive = {
   desktop: {
@@ -46,6 +48,7 @@ const HouseBox = ({
   imageUrls,
   size,
   created_at,
+  url,
 }: HouseBoxProps) => {
   return (
     <Card
@@ -91,15 +94,24 @@ const HouseBox = ({
           />
         ))}
       </Carousel>
-      <HouseDetails className="house-info">
-        <HouseTitle className="house-title">{title}</HouseTitle>
-        <div>Aluguel: R$ {rent}</div>
-        <div>Condomínio: R$ {tax_hotel}</div>
-        <div>IPTU: R$ {iptu}</div>
-        <div>Tamanho {size} m²</div>
-        <div>Lançado: {formatDate(created_at)}</div>
+      <HouseDetails
+        className="house-info"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+        }}
+      >
+        <HouseTitleLink className="house-title" href={url} underline="none">
+          {title}
+        </HouseTitleLink>
+        <TextField>Aluguel: R$ {rent}</TextField>
+        <TextField>Condomínio: R$ {tax_hotel}</TextField>
+        <TextField>IPTU: R$ {iptu}</TextField>
+        <TextField>Tamanho {size} m²</TextField>
+        <TextField>Lançado: {formatDate(created_at)}</TextField>
         <HousePrice className="house-price">
-          Aluguel: R${rent + tax_hotel + iptu}
+          Total: R${rent + tax_hotel + iptu}
         </HousePrice>
 
         {/* <HouseDescription className="house-description">

@@ -7,6 +7,7 @@ interface HouseBoxProps {
   imageUrls: string[];
   size: number;
   created_at: string;
+  url: string;
 }
 
 export type { HouseBoxProps };

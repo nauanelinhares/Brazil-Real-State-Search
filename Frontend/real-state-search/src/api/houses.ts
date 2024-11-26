@@ -12,7 +12,7 @@ async function getHouseById(id: string) {
 }
 
 
-async function getHouses(neighborhood: string, limit: number = 12, offset: number = 0, createdAt?: string) {
+async function getHouses(neighborhood: string, limit: number = 10000, offset: number = 0, createdAt?: string) {
     let url = `http://127.0.0.1:8000/api/v1/houses?neighborhood=${neighborhood}&limit=${limit}&offset=${offset}`;
     if (createdAt) {
         url += `&created_at=${createdAt}`;
