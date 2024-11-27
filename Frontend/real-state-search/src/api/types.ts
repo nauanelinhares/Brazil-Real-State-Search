@@ -17,10 +17,23 @@ interface HouseInfo {
     url: string;
 }
 
+interface HouseFilter{
+    neighborhood?: string;
+    limit?: number;
+    createdAt?: string;
+    company?: string;
+    size?: number;
+    numberRooms?: number;
+    numberBathrooms?: number;
+    numberParkingSpaces?: number;
+    minRent?: number;
+    maxRent?: number;
+}
+
 interface Neighborhood {
     neighborhood: string;
     count?: number;
 }
 
-export type {HouseInfo, Neighborhood};
+export type {HouseInfo, Neighborhood, HouseFilter};
 

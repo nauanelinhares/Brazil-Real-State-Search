@@ -12,21 +12,39 @@ async function getHouseById(id: string) {
 }
 
 
-async function getHouses(neighborhood: string, limit: number = 10000, offset: number = 0, createdAt?: string) {
-    let url = `http://127.0.0.1:8000/api/v1/houses?neighborhood=${neighborhood}&limit=${limit}&offset=${offset}`;
-    if (createdAt) {
-        url += `&created_at=${createdAt}`;
-    }
+async function getHouses(
+    neighborhood?: string,
+    limit: number = 100000,
+    createdAt?: string,
+    company?: string,
+    size?: number,
+    numberRooms?: number,
+    numberBathrooms?: number,
+    numberParkingSpaces?: number,
+    minRent?: number,
+    maxRent?: number,
+
+) {
+    let url = `http://127.0.0.1:8000/api/v1/houses?limit=${limit}`;
+    if (neighborhood) url += `&neighborhood=${neighborhood}`;
+    if (createdAt) url += `&created_at=${createdAt}`;
+    if (company) url += `&company=${company}`;
+    if (size) url += `&size=${size}`;
+    if (numberRooms) url += `&number_rooms=${numberRooms}`;
+    if (numberBathrooms) url += `&number_bathrooms=${numberBathrooms}`;
+    if (numberParkingSpaces) url += `&number_parking_spaces=${numberParkingSpaces}`;
+    if (minRent) url += `&min_rent=${minRent}`;
+    if (maxRent) url += `&max_rent=${maxRent}`;
+
     const response = await fetch(url);
     console.log(response.status);
     if (!response.ok) {
-        throw new Error(`Error fetching houses in neighborhood ${neighborhood}: ${response.statusText}`);
+        throw new Error(`Error fetching houses: ${response.statusText}`);
     }
     const houses = await response.json();
     const housesTyped: HouseInfo[] = houses as HouseInfo[];
     return housesTyped;
 }
-
 
 async function getNeighborhoods(createdAt?: string) {
     let url = `http://127.0.0.1:8000/api/v1/house/neighborhoods?`

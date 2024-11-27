@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HouseInfo, Neighborhood } from "./api/types";
+import { HouseInfo, Neighborhood, HouseFilter } from "./api/types";
 import { getHouseById, getNeighborhoods, getHouses } from "./api/houses";
 import HouseBox from "./components/HouseBox";
 import {
@@ -10,6 +10,13 @@ import {
   Pagination,
   Autocomplete,
   TextField,
+  Input,
+  Button,
+  Card,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  FormLabel,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import BasicDatePicker from "./components/DatePicker";
@@ -21,20 +28,23 @@ const App = () => {
     useState<Neighborhood>({
       neighborhood: "",
     });
+  const [houseFilter, setHouseFilter] = useState<HouseFilter>();
   const [selectedPage, setSelectedPage] = useState<number>(1);
   const [selectedDate, setSelectedDate] = useState<string>("");
 
-  const fetchHouses = async (neighborhood?: any) => {
+  const fetchHouses = async () => {
     try {
-      setSelectedNeighborhood({
-        neighborhood: neighborhood.neighborhood,
-        count: neighborhood.count,
-      });
       const response = getHouses(
-        neighborhood.neighborhood,
-        neighborhood.count,
-        undefined,
-        selectedDate
+        selectedNeighborhood.neighborhood,
+        selectedNeighborhood.count,
+        houseFilter?.createdAt,
+        houseFilter?.company,
+        houseFilter?.size,
+        houseFilter?.numberRooms,
+        houseFilter?.numberBathrooms,
+        houseFilter?.numberParkingSpaces,
+        houseFilter?.minRent,
+        houseFilter?.maxRent
       );
       setHouses(await response);
     } catch (error) {
@@ -56,9 +66,25 @@ const App = () => {
       const data = await fetchNeighborhoods();
       setNeighborhoods(data);
     };
+
     fetchData();
-    fetchHouses(selectedNeighborhood);
+    updateFieldHouseFilter("createdAt", selectedDate);
   }, [selectedDate]);
+
+  useEffect(() => {
+    fetchHouses();
+  }, []);
+
+  const updateHouseFilter = () => {
+    fetchHouses();
+  };
+
+  const updateFieldHouseFilter = (field: string, value: any) => {
+    setHouseFilter({
+      ...houseFilter,
+      [field]: value,
+    });
+  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -68,21 +94,84 @@ const App = () => {
         style={{ display: "flex", flexDirection: "row", gap: "1rem" }}
       >
         <FormControl fullWidth style={{ maxWidth: 450, gap: "1rem" }}>
-          <Autocomplete
-            options={neighborhoods || []}
-            getOptionLabel={(option) =>
-              `${option.neighborhood} (${option.count})`
-            }
-            onChange={(_, value) => {
-              if (value) {
-                fetchHouses(value);
-              }
+          <Card
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              padding: "1rem",
             }}
-            renderInput={(params) => (
-              <TextField {...params} label="Bairro" variant="outlined" />
-            )}
-          />
-          <BasicDatePicker onChange={setSelectedDate} title="A partir de" />
+          >
+            <Autocomplete
+              options={neighborhoods || []}
+              getOptionLabel={(option) =>
+                `${option.neighborhood} (${option.count})`
+              }
+              onChange={(_, value) => {
+                setSelectedNeighborhood({
+                  neighborhood: value?.neighborhood ? value.neighborhood : "",
+                  count: value?.count,
+                });
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Bairro" variant="outlined" />
+              )}
+            />
+            <BasicDatePicker onChange={setSelectedDate} title="A partir de" />
+            <Input
+              onChange={(e) => updateFieldHouseFilter("size", e.target.value)}
+              placeholder="Tamanho mínimo"
+            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "1rem",
+              }}
+            >
+              <Input
+                onChange={(e) =>
+                  updateFieldHouseFilter("minRent", e.target.value)
+                }
+                placeholder="Aluguel mínimo"
+              />
+              <Input
+                onChange={(e) =>
+                  updateFieldHouseFilter("maxRent", e.target.value)
+                }
+                placeholder="Aluguel máximo"
+              />
+            </div>
+            <div>
+              <FormLabel id="demo-radio-buttons-group-label">
+                Número de quartos
+              </FormLabel>
+              <RadioGroup row name="use-radio-group" defaultValue="first">
+                <FormControlLabel value="1" label="1" control={<Radio />} />
+                <FormControlLabel value="2" label="2" control={<Radio />} />
+                <FormControlLabel value="3" label="3" control={<Radio />} />
+                <FormControlLabel value="4+" label="4+" control={<Radio />} />
+              </RadioGroup>
+            </div>
+            <div>
+              <FormLabel id="demo-radio-buttons-group-label">
+                Número de vagas de garagem
+              </FormLabel>
+              <RadioGroup row name="use-radio-group" defaultValue="first">
+                <FormControlLabel value="1" label="1" control={<Radio />} />
+                <FormControlLabel value="2" label="2" control={<Radio />} />
+                <FormControlLabel value="3" label="3" control={<Radio />} />
+                <FormControlLabel value="4+" label="4+" control={<Radio />} />
+              </RadioGroup>
+            </div>
+            <Button
+              variant="contained"
+              onClick={updateHouseFilter}
+              style={{ backgroundColor: "#f9b342" }}
+            >
+              Atualizar Resultados
+            </Button>
+          </Card>
         </FormControl>
 
         <Grid
