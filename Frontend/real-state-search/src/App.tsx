@@ -88,7 +88,15 @@ const App = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-      <h1>Casas</h1>
+      <div
+        style={{
+          textAlign: "center",
+          color: "#ffffff",
+          backgroundColor: "gray",
+        }}
+      >
+        <h1>Real state search to rent</h1>
+      </div>
       <Grid
         columns={2}
         style={{ display: "flex", flexDirection: "row", gap: "1rem" }}
