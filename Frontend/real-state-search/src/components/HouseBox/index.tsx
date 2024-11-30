@@ -11,9 +11,9 @@ import Card from "@mui/material/Card";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { HouseBoxProps } from "./types";
-import { blue, grey } from "@mui/material/colors";
 import { formatDate } from "../../utils/format-date";
-import Link from "@mui/material/Link";
+
+import BasicModal from "../HouseModal";
 
 const responsive = {
   desktop: {
@@ -47,6 +47,11 @@ const HouseBox = ({
   iptu,
   imageUrls,
   size,
+  numberRooms,
+  numberBathrooms,
+  numberParkingSpaces,
+  neighborhood,
+  company,
   created_at,
   url,
 }: HouseBoxProps) => {
@@ -113,10 +118,24 @@ const HouseBox = ({
         <HousePrice className="house-price">
           Total: R${rent + tax_hotel + iptu}
         </HousePrice>
-
-        {/* <HouseDescription className="house-description">
-          {description}
-        </HouseDescription> */}
+        <div>
+          <BasicModal
+            title={title}
+            description={description}
+            rent={rent}
+            tax_hotel={tax_hotel}
+            iptu={iptu}
+            imageUrls={imageUrls}
+            size={size}
+            numberRooms={numberRooms}
+            numberBathrooms={numberBathrooms}
+            numberParkingSpaces={numberParkingSpaces}
+            neighborhood={neighborhood}
+            company={company}
+            created_at={created_at}
+            url={url}
+          />
+        </div>
       </HouseDetails>
     </Card>
   );

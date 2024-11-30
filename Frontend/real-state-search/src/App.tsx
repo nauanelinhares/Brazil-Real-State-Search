@@ -210,6 +210,11 @@ const App = () => {
                     iptu={house.iptu}
                     imageUrls={house.images}
                     size={house.size}
+                    numberRooms={house.number_rooms}
+                    numberBathrooms={house.number_bathrooms}
+                    numberParkingSpaces={house.number_parking_spaces}
+                    neighborhood={house.neighborhood}
+                    company={house.company}
                     created_at={house.created_at}
                     url={house.url}
                   />
