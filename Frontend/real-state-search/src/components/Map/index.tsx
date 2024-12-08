@@ -7,7 +7,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./styles.css";
 
-const GOOGLE_API_KEY = "AIzaSyCqLa-99b9kiQUH6pMu8mUSo36peQ9o_T4";
+const GOOGLE_API_KEY = "{YOUR_GOOGLE_API_KEY}";
 
 async function geocodeAddress(address: string) {
   const response = await fetch(
