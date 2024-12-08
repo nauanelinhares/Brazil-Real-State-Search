@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import BasicDatePicker from "./components/DatePicker";
+import Map from "./components/Map";
 
 const App = () => {
   const [houses, setHouses] = useState<HouseInfo[]>();
@@ -86,6 +87,8 @@ const App = () => {
     });
   };
 
+  console.log(selectedNeighborhood);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <div
@@ -101,7 +104,7 @@ const App = () => {
         columns={2}
         style={{ display: "flex", flexDirection: "row", gap: "1rem" }}
       >
-        <FormControl fullWidth style={{ maxWidth: 450, gap: "1rem" }}>
+        <FormControl fullWidth style={{ maxWidth: 600, gap: "1rem" }}>
           <Card
             style={{
               display: "flex",
@@ -179,6 +182,32 @@ const App = () => {
             >
               Atualizar Resultados
             </Button>
+            <Card>
+              {!selectedNeighborhood.neighborhood && (
+                <Map
+                  numbers={
+                    neighborhoods?.map((n) => n.count || 0).slice(0, 10) ?? []
+                  }
+                  addresses={
+                    neighborhoods?.map((n) => n.neighborhood).slice(0, 10) ?? []
+                  }
+                />
+              )}
+              {selectedNeighborhood.neighborhood && (
+                <Map
+                  numbers={houses?.map((n) => 1 || 0).slice(0, 10) ?? []}
+                  addresses={
+                    houses
+                      ?.filter(
+                        (n) =>
+                          n.neighborhood === selectedNeighborhood.neighborhood
+                      )
+                      .map((n) => n.adress)
+                      .slice(0, 10) ?? []
+                  }
+                />
+              )}
+            </Card>
           </Card>
         </FormControl>
 

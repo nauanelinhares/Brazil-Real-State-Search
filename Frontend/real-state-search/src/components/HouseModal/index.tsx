@@ -13,6 +13,8 @@ import ShowerIcon from "@mui/icons-material/Shower";
 import AspectRatioIcon from "@mui/icons-material/AspectRatio";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import Carousel from "react-multi-carousel";
+import { HouseImage } from "../HouseBox/styles";
 export default function BasicModal({
   title,
   description,
@@ -32,6 +34,29 @@ export default function BasicModal({
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const responsive = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 1,
+    },
+    mobile: {
+      breakpoint: {
+        max: 464,
+        min: 0,
+      },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: {
+        max: 1024,
+        min: 464,
+      },
+      items: 1,
+    },
+  };
 
   return (
     <div>
@@ -47,13 +72,56 @@ export default function BasicModal({
         <Box
           sx={{
             ...style,
+            display: "flex",
+            flexDirection: "column",
             overflow: "auto",
             maxHeight: "80vh",
+            gap: "16px",
           }}
         >
           <Typography id="house-modal-title" variant="h6" component="h2">
             {title}
           </Typography>
+          <div>
+            <Carousel
+              additionalTransfrom={0}
+              arrows
+              autoPlaySpeed={3000}
+              centerMode={false}
+              className=""
+              containerClass="container-with-dots"
+              dotListClass=""
+              draggable
+              focusOnSelect={false}
+              infinite
+              itemClass=""
+              keyBoardControl
+              minimumTouchDrag={80}
+              pauseOnHover
+              renderArrowsWhenDisabled={false}
+              renderButtonGroupOutside={false}
+              renderDotsOutside={false}
+              responsive={responsive}
+              rewind={false}
+              rewindWithAnimation={false}
+              rtl={false}
+              shouldResetAutoplay
+              showDots={false}
+              sliderClass=""
+              slidesToSlide={1}
+              swipeable
+            >
+              {imageUrls.map((url, index) => (
+                <HouseImage
+                  style={{ width: "100%", height: "300px" }}
+                  key={index}
+                  src={url}
+                  alt={`${title} image ${index + 1}`}
+                  className="house-image"
+                />
+              ))}
+            </Carousel>
+          </div>
           <Grid
             container
             rowSpacing={1}
@@ -113,7 +181,7 @@ export default function BasicModal({
               display: "flex",
               textAlign: "justify",
               backgroundColor: "rgba(0, 0, 0, 0.0)",
-              boxShadow: "0 0 1px rgba(0, 0, 0, 0.15)",
+              boxShadow: "0 0 2px rgba(0, 0, 0, 0.5)",
               padding: "16px",
             }}
           >
