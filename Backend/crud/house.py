@@ -88,7 +88,7 @@ def get_neighborhoods(db: Session, created_at: str = None):
     query = db.query(
         InfoHouse.neighborhood,
         func.count(InfoHouse.id).label('count')
-    ).group_by(InfoHouse.neighborhood)
+    ).group_by(InfoHouse.neighborhood).order_by(func.count(InfoHouse.id).desc())
 
     print(created_at)
     if created_at:
